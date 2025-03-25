@@ -1,45 +1,34 @@
-<div>
-    @if (session()->has('message'))
-        <div class="alert alert-success">{{ session('message') }}</div>
-    @endif
-
-    <form wire:submit.prevent="save">
-        <div>
-            <label>Nome:</label>
-            <input type="text" wire:model="nome">
-            @error('nome') <span class="error">{{ $message }}</span> @enderror
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h4>Lista de Clientes</h4>
         </div>
+        <div class="card-body">
+            <a href="{{ route('cliente.create') }}" class="btn btn-success mb-3">Novo Cliente</a>
 
-        <div>
-            <label>Endereço:</label>
-            <input type="text" wire:model="endereco">
-            @error('endereco') <span class="error">{{ $message }}</span> @enderror
+            <table class="table table-bordered">
+                <thead class="bg-light">
+                    <tr>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Email</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($clientes as $cliente)
+                        <tr>
+                            <td>{{ $cliente->nome }}</td>
+                            <td>{{ $cliente->CPF }}</td>
+                            <td>{{ $cliente->email }}</td>
+                            <td>
+                                <a href="{{ route('cliente.edit', $cliente->id) }}" class="btn btn-warning btn-sm">Editar</a>
+                                <button class="btn btn-danger btn-sm" wire:click="delete({{ $cliente->id }})">Excluir</button>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
-
-        <div>
-            <label>Telefone:</label>
-            <input type="text" wire:model="telefone">
-            @error('telefone') <span class="error">{{ $message }}</span> @enderror
-        </div>
-
-        <div>
-            <label>CPF:</label>
-            <input type="text" wire:model="CPF">
-            @error('CPF') <span class="error">{{ $message }}</span> @enderror
-        </div>
-
-        <div>
-            <label>Email:</label>
-            <input type="email" wire:model="email">
-            @error('email') <span class="error">{{ $message }}</span> @enderror
-        </div>
-
-        <div>
-            <label>Senha:</label>
-            <input type="senha" wire:model="senha">
-            @error('senha') <span class="error">{{ $message }}</span> @enderror
-        </div>
-
-        <button type="submit">Cadastrar</button>
-    </form>
+    </div>
 </div>
