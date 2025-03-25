@@ -16,7 +16,7 @@ class Create extends Component
         'telefone' => 'required|string|min:10',
         'CPF' => 'required|unique:cliente,cpf|size:11',
         'email' => 'required|email|unique:cliente,email',
-        'senha' => 'required|min:6',
+        'senha' => 'required|min:6'
     ];
 
     public function save()
